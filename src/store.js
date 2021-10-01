@@ -24,12 +24,11 @@ const store = new Vuex.Store({
         ],
     },
     getters: {
-        // pertenece a state?
-    //contiene todos los getters (acá solo hay uno productosConStock)
     productosConStock: (state) => {
         // state contiene los estados del store
         return state.productos.filter((producto) => {
           //filtro de los productos para sólo retornar aquellos que tengan stock
+          console.log(producto.stock)
           return producto.stock > 0;
         });
       },
@@ -45,7 +44,57 @@ const store = new Vuex.Store({
         });
       },
     },
-    mutations: {},
-    actions: {}
+    mutations: {
+      venderProducto(state, producto){
+        state.productos.forEach((p)=>{
+          if(p.id == producto.id && p.stock > 0){
+            p.stock--
+          }
+        })
+      },
+      actualizarTotal(state, producto){//adelan
+        state.totalVentas += producto.precio
+      } 
+    },
+    actions: {
+      async vender({commit, dispatch}, producto){
+        console.log(commit)
+        await dispatch('procesarVenta', producto).then(()=>{//Con esto, primero se ejecutará la venta y luego se disparará la actualización del monto total
+          alert('Venta procesada')
+        }).catch(()=>{
+          alert('Venta rechazada. No hay stock o el producto no existe')
+        })
+        dispatch('actualizarTotal', producto)
+      },
+      async procesarVenta({commit, state}, producto){ 
+        return new Promise((resolve, reject)=>{
+          let tiempoEjecucion = Math.floor((Math.random() * 3000) + 1)
+          console.log(tiempoEjecucion)
+          setTimeout(() => {
+            let resultado = false
+            state.productos.forEach((p)=>{
+              if(p.id == producto.id && p.stock > 0){
+                commit('venderProducto', producto)
+                resultado = true
+              }
+            })
+            if(resultado)
+              resolve()
+            else
+              reject()
+          }, tiempoEjecucion);
+        })
+      },
+      actualizarTotal({commit}, producto){
+        return new Promise((resolve, reject)=>{
+          console.log(resolve)
+          console.log(reject)
+          let tiempoEjecucion = Math.floor((Math.random() * 3000) + 1)
+          setTimeout(() => {
+            commit('actualizarTotal', producto)
+          }, tiempoEjecucion);
+        })
+      }
+    }
 })
 export default store

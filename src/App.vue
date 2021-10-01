@@ -48,10 +48,12 @@ export default {
 }
 .block {
   display: grid;
+  
   grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 .menu {
+  
   color: white;
-  margin-left: 40px;
+  margin-left: 10vw;
 }
 </style>

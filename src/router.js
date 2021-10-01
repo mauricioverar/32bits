@@ -3,11 +3,12 @@ import Router from 'vue-router'
 //import Inicio from './components/Inicio'
 import Busquedas from './components/Busquedas'
 //import Ventas from './components/Ventas'
-import Total from './components/Total'
+//import Total from './components/Total'
 
 const Inicio = () => import('./components/Inicio')
 //const Busquedas = () => import('./components/Busquedas')
 const Ventas = () => import('./components/Ventas')
+const Total = () => import('./components/Total')
 
 Vue.use(Router)
 export default new Router({

@@ -7,9 +7,8 @@
             <hr />
             <h1>Productos Disponibles</h1>
             <ul>
-            <li v-for="(producto, clave) in productosConStock" :key="clave" :style="[{backgroundColor:producto.color}]">
+            <li v-for="(producto, clave) in productosConStock" :key="clave" :style="[styleObject, {backgroundColor:producto.color}]">
                 <label>{{producto.id}} | {{producto.nombre}} |{{producto.stock}} | {{producto.precio}} | </label>
-                <input type="button" value="Vender" @click="vender(producto)">
             </li>
             </ul>
             <hr />
@@ -26,7 +25,10 @@ export default {
     
     return {
       busquedaPorId: "",
-      subtitulo:"Juegos de PC y consolas"
+      styleObject: {
+            fontWeight:'bold',
+            color:'black',
+        },
     };
   },
 
