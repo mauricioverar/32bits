@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
     <nav class="navbar navbar-light" style="background-color: black">
       <div class="block">
         <router-link :to="{ name: 'inicio' }" class="menu">Inicio</router-link>
@@ -8,12 +7,7 @@
         <router-link :to="{ name: 'ventas' }" class="menu">Ventas</router-link>
         <router-link :to="{ name: 'total' }" class="menu">Total</router-link>
       </div>
-      <!-- Navbar content -->
     </nav>
-    <div class="title">
-      <h1 v-text="titulo"></h1>
-      <h2 v-text="subtitulo"></h2>
-    </div>
     <transition name="vista">
       <router-view></router-view>
     </transition>
@@ -26,15 +20,10 @@ export default {
     
     return {
       busquedaPorId: "",
-      subtitulo:"Juegos de PC y consolas"
-    };
+      
+    }
   },
-  computed: {
-    titulo() {
-      return "32bits";
-    },
-  }
-};
+}
 </script>
 
 <style>
